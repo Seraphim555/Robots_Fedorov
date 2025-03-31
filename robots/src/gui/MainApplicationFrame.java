@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.JOptionPane;
 
 import log.Logger;
 
@@ -141,14 +142,29 @@ public class MainApplicationFrame extends JFrame
         }
 
         private void addTestMenuItem(JMenu parentMenu, String text, Runnable action) {
-            JMenuItem item = new JMenuItem(text, KeyEvent.VK_S);
-            item.addActionListener((event) -> action.run());
+            JMenuItem item = new JMenuItem(text);
+            item.addActionListener((event) -> {
+                if (!text.equals("Выход") || frame.confirmExit()) {
+                    action.run();
+                }
+            });
             parentMenu.add(item);
         }
     }
 
     private JMenuBar generateMenuBar() {
         return new MenuBuilder(this).build();
+    }
+
+    private boolean confirmExit() {
+        int result = JOptionPane.showConfirmDialog(
+                this,
+                "Вы действительно хотите выйти?",
+                "Подтверждение выхода",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+        return result == JOptionPane.YES_OPTION;
     }
     
     private void setLookAndFeel(String className)
