@@ -122,6 +122,15 @@ public class MainApplicationFrame extends JFrame
             lookAndFeelMenu.add(crossplatformLookAndFeel);
         }
 
+        {
+            JMenuItem crossplatformLookAndFeel = new JMenuItem("Крутая схема ;)", KeyEvent.VK_S);
+            crossplatformLookAndFeel.addActionListener((event) -> {
+                setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+                this.invalidate();
+            });
+            lookAndFeelMenu.add(crossplatformLookAndFeel);
+        }
+
         JMenu testMenu = new JMenu("Тесты");
         testMenu.setMnemonic(KeyEvent.VK_T);
         testMenu.getAccessibleContext().setAccessibleDescription(
