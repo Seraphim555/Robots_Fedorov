@@ -2,3 +2,17 @@
 /robots/.settings
 /robots/bin
 eclipse.bat
+*.class
+
+# Папки IDE
+.idea/
+out/
+target/
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# Логи и кэш
+*.log
+*.tmp
