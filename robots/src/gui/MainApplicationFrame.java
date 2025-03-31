@@ -157,13 +157,19 @@ public class MainApplicationFrame extends JFrame
     }
 
     private boolean confirmExit() {
-        int result = JOptionPane.showConfirmDialog(
+        Object[] options = {"Да", "Нет"};  // Русские тексты
+
+        int result = JOptionPane.showOptionDialog(
                 this,
                 "Вы действительно хотите выйти?",
                 "Подтверждение выхода",
                 JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[1]
         );
+
         return result == JOptionPane.YES_OPTION;
     }
     
