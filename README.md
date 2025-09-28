@@ -1,2 +1,2 @@
-# Robots
-The project to learn OO design concepts and MDI application development in Java
+# Пример работы Java-проекта
+Сначала был с ошибками, теперь - исправленный
