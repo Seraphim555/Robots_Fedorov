@@ -16,7 +16,7 @@ public class WindowConfig {
     private static final String CONFIG_FILE = CONFIG_DIR +
             File.separator + "window_config.properties";
 
-    public static void saveWindowState(JFrame frame, List<JInternalFrame> internalFrames) { // Изменили на List<>
+    public static void saveWindowState(JFrame frame, List<JInternalFrame> internalFrames) {
         try {
 
             File configDir = new File(CONFIG_DIR);
@@ -48,7 +48,7 @@ public class WindowConfig {
             }
 
         } catch (IOException e) {
-            System.err.println("Ошибка при сохранении конфигурации окон: " + e.getMessage()); // Заменили Logger
+            System.err.println("Ошибка при сохранении конфигурации окон: " + e.getMessage());
         }
     }
 
@@ -87,7 +87,7 @@ public class WindowConfig {
             return state;
 
         } catch (IOException | NumberFormatException e) {
-            System.err.println("Ошибка при загрузке конфигурации окон: " + e.getMessage()); // Заменили Logger
+            System.err.println("Ошибка при загрузке конфигурации окон: " + e.getMessage());
             return null;
         }
     }
@@ -95,7 +95,7 @@ public class WindowConfig {
     public static class WindowState {
         public int mainX, mainY, mainWidth, mainHeight;
         public boolean mainMaximized;
-        public List<InternalFrameState> internalFrames; // Убрали параметризацию
+        public List<InternalFrameState> internalFrames;
     }
 
     public static class InternalFrameState {
