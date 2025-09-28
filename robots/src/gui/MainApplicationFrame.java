@@ -215,7 +215,15 @@ public class MainApplicationFrame extends JFrame {
             SwingUtilities.updateComponentTreeUI(this);
         } catch (ClassNotFoundException | InstantiationException
                  | IllegalAccessException | UnsupportedLookAndFeelException e) {
-            // just ignore
+            Logger.error("Не удалось установить LookAndFeel: " + className + " - " + e.getMessage());
+
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                SwingUtilities.updateComponentTreeUI(this);
+                Logger.debug("Установлена системная тема по умолчанию");
+            } catch (Exception fallbackException) {
+                Logger.error("Не удалось установить и системную тему: " + fallbackException.getMessage());
+            }
         }
     }
 }
