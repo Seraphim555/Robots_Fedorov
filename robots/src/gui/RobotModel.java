@@ -72,16 +72,28 @@ public class RobotModel extends Observable {
 
         double velocity = MAX_VELOCITY;
         double angleToTarget = angleTo(robotPositionX, robotPositionY, targetPositionX, targetPositionY);
-        double angularVelocity = 0;
 
-        if (angleToTarget > robotDirection) {
-            angularVelocity = MAX_ANGULAR_VELOCITY;
-        }
-        if (angleToTarget < robotDirection) {
-            angularVelocity = -MAX_ANGULAR_VELOCITY;
+        // Вычисляем разницу углов с учетом круговой природы
+        double angleDiff = angleToTarget - robotDirection;
+
+        // Нормализуем разницу в диапазон [-PI, PI]
+        angleDiff = normalizeAngle(angleDiff);
+
+        // Пропорциональное управление: чем больше отклонение, тем быстрее поворот
+        double angularVelocity = applyLimits(angleDiff * 2, -MAX_ANGULAR_VELOCITY, MAX_ANGULAR_VELOCITY);
+
+        // Если смотрим почти в противоположную сторону, двигаемся медленнее
+        if (Math.abs(angleDiff) > Math.PI / 2) {
+            velocity *= 0.3;
         }
 
         moveRobot(velocity, angularVelocity, 10);
+    }
+
+    private static double normalizeAngle(double angle) {
+        while (angle > Math.PI) angle -= 2 * Math.PI;
+        while (angle < -Math.PI) angle += 2 * Math.PI;
+        return angle;
     }
 
     private void moveRobot(double velocity, double angularVelocity, double duration) {

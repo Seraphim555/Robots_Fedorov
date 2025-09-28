@@ -43,13 +43,20 @@ public class MainApplicationFrame extends JFrame {
         }
 
         setContentPane(desktopPane);
+
+        RobotModel robotModel = new RobotModel();
         
         LogWindow logWindow = createLogWindow();
         addWindow(logWindow);
 
-        GameWindow gameWindow = new GameWindow();
+        GameWindow gameWindow = new GameWindow(robotModel);
         gameWindow.setSize(400,  400);
         addWindow(gameWindow);
+
+        CoordinatesWindow coordinatesWindow = new CoordinatesWindow(robotModel);
+        coordinatesWindow.setSize(250, 200);
+        coordinatesWindow.setLocation(470, 10);
+        addWindow(coordinatesWindow);
 
         if (savedState != null) {
             restoreInternalFramesState(savedState);
@@ -157,6 +164,8 @@ public class MainApplicationFrame extends JFrame {
             menu.addSeparator();
             addLookAndFeelMenuItem(menu, "Универсальная схема", UIManager.getCrossPlatformLookAndFeelClassName());
             menu.addSeparator();
+            addLookAndFeelMenuItem(menu, "Норм схема", "javax.swing.plaf.metal.MetalLookAndFeel");
+            menu.addSeparator();
             addLookAndFeelMenuItem(menu, "Крутая схема ;)", "javax.swing.plaf.nimbus.NimbusLookAndFeel");
 
             menuBar.add(menu);
@@ -178,7 +187,7 @@ public class MainApplicationFrame extends JFrame {
 
             addTestMenuItem(menu, "Сообщение в лог", () -> Logger.debug("Новая строка"));
             menu.addSeparator();
-            addTestMenuItem(menu, "Выход", () -> frame.exitApplication()); // Используем метод exitApplication
+            addTestMenuItem(menu, "Выход", () -> frame.exitApplication());
 
             menuBar.add(menu);
         }
